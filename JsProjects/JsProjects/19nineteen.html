@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="19nineteen.css">
+    <title>Password Strength</title>
+</head>
+<body>
+    <div class="container">
+        <div class="input-box">
+            <input type="password" id="password" placeholder="password">
+            <button type="submit"><img src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-forward-256.png" alt=""></button>
+            <p id="message">Password is <span id="Strength"></span></p>
+        </div>
+    </div>
+<script>
+    let pass = document.querySelector('#password');
+    let msg = document.querySelector('#message');
+    let str = document.querySelector('#Strength');
+
+    pass.addEventListener('input',function(){
+        if(pass.value.length > 0){
+            msg.style.display = 'block';
+        }else{
+            msg.style.display = 'none';
+        }
+        if(pass.value.length < 4){
+            str.innerHTML = 'weak';
+            pass.style.borderColor = 'red';
+            msg.style.color = 'red';
+        }else if(pass.value.length >= 4 && pass.value.length < 8){
+            str.innerHTML = 'medium';
+            pass.style.borderColor = 'yellow';
+            msg.style.color = 'yellow';
+        }else if(pass.value.length >= 8){
+            str.innerHTML = 'strong';
+            pass.style.borderColor = 'lime';
+            msg.style.color = 'lime';
+        }
+    })
+</script>
+</body>
+</html>

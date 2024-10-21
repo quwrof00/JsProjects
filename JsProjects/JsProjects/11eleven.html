@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="11eleven.css">
+    <title>Stopwatch</title>
+</head>
+<body>
+    <div class="stopwatch">
+        <h1 id="display-time">00:00:00</h1>
+        <div class="buttons">
+            <img onclick="watchReset()" src="https://cdn1.iconfinder.com/data/icons/systemui-vol-2/21/reset_forward-256.png" id="reset">
+            <img onclick="toggleStart()" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-play-256.png" id="play-pause">
+            <img onclick="watchLap()" src="https://cdn1.iconfinder.com/data/icons/radix/15/lap-timer-256.png" id="lap">
+        </div>
+        <div class="lap-container">
+            <h2 id="lapHead"></h2>
+            <ul id="laps-list"></ul>
+        </div>
+    </div>
+<script>
+    let [seconds,minutes,hours] = [0,0,0];
+    let displayTime = document.querySelector('#display-time');
+    let isRunning = false;
+    let playPause = document.querySelector('#play-pause');
+    let reset = document.querySelector('#reset');
+    let lapsList = document.querySelector('#laps-list');
+    let head = document.querySelector('#lapHead');
+    let laps = [];
+    let interval;
+
+    function stopwatch(){
+        seconds++;
+        if(seconds === 60){
+            seconds = 0;
+            minutes++;
+            if(minutes === 60){
+                minutes = 0;
+                hours++;
+            }
+        }
+        let h = hours < 10 ? '0'+hours:hours;
+        let m = minutes < 10 ? '0'+minutes:minutes;
+        let s = seconds < 10 ? '0'+seconds:seconds;
+        displayTime.innerHTML = `${h}:${m}:${s}`;
+    }
+    function toggleStart(){
+        if(!isRunning){
+            interval = setInterval(stopwatch,1000);
+            playPause.src = "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-pause-256.png";
+            isRunning = true;
+        }
+        else{
+            clearInterval(interval);
+            playPause.src = "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-play-256.png";
+            isRunning = false;
+        }
+    }
+    function watchReset(){
+        [hours,minutes,seconds] = [0,0,0];
+        displayTime.innerHTML = `00:00:00`;
+        clearInterval(interval);
+        playPause.src = "https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-play-256.png";
+        lapsList.innerHTML = '';
+        head.innerHTML = '';
+        laps = [];
+    }
+    function watchLap(){
+        head.innerHTML = 'Laps:';
+        let currentLapTime = displayTime.innerHTML;
+        laps.push(currentLapTime);
+        let li = document.createElement('li');
+        li.innerHTML = `Lap ${laps.length}: ${currentLapTime}`;
+        lapsList.appendChild(li);
+    }
+</script>
+</body>
+</html>

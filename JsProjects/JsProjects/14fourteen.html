@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="14fourteen.css">
+    <title>Hide Password</title>
+</head>
+<body>
+    <div class="container">
+        <div class="pwd-box">
+            <input type="password" placeholder="Enter password" id="pwd">
+            <img onclick="viewPwd()" id="eye-img" src="https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Eye-Show-View-Watch-See-256.png" alt="">
+        </div>
+    </div>
+<script>
+    let password = document.querySelector('#pwd');
+    let img = document.querySelector('#eye-img');
+
+    let isView = false;
+
+    function viewPwd(){
+        if(!isView && password.value.length > 0){
+            password.type = 'text';
+            img.src = 'https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Eye-Show-View-Watch-See-Disable-Inactive-Unavailable-Off-512.png'
+            isView = true;
+        }else if(password.value.length == 0){
+            alert('Type something blud!');
+        }else{
+            password.type = 'password';
+            img.src = 'https://cdn1.iconfinder.com/data/icons/jumpicon-basic-ui-line-1/32/-_Eye-Show-View-Watch-See-256.png';
+            isView = false;
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="10ten.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Music Player</title>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="https://wallpapers-clan.com/wp-content/uploads/2024/04/hunter-x-hunter-hisoka-morow-dark-desktop-wallpaper-cover.jpg" class= "song-img" alt="">
+            <h1>Hisoka Theme</h1>
+            <p>Hisoka Morrow Ft. Gon Freecs</p>
+            <audio id="song">
+                <source src="10bgm.ogg">
+            </audio>
+            <input type="range" value= "0" id="progress">
+            <p id="hover-time"></p>
+            <div class="controls">
+                <div onclick="backAhead()"><i class="fa-solid fa-backward" id="back"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+                <div onclick="backAhead()"><i class="fa-solid fa-forward" id="ahead"></i></div>
+            </div>
+        </div>
+    </div>
+<script>
+    let progress = document.querySelector('#progress');
+    let song = document.querySelector('#song');
+    let control = document.querySelector('#ctrlIcon');
+    let back = document.querySelector('#back');
+    let ahead = document.querySelector('#ahead');
+    let hover = document.querySelector('#hover-time');
+
+    song.onloadedmetadata = function(){
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+    }
+    function playPause(){
+        if(control.classList.contains('fa-pause')) {
+            song.pause();
+            control.classList.remove('fa-pause');
+            control.classList.add('fa-play');
+        }else{
+            song.play();
+            control.classList.add('fa-pause');
+            control.classList.remove('fa-play');
+        }
+    }
+
+    if(song.play()){
+        setInterval(() => {
+            progress.value = song.currentTime;
+        }, 1000);
+    }
+    progress.onchange = function(){
+        song.play();
+        song.currentTime = progress.value;
+        control.classList.add('fa-pause');
+        control.classList.remove('fa-play');
+    }
+
+back.addEventListener('click',function(){
+    song.currentTime = Math.max(0,song.currentTime - 5);
+
+})
+ahead.addEventListener('click',function(){
+    song.currentTime = Math.min(song.duration,song.currentTime+5);
+})
+song.addEventListener('timeupdate',function(){
+    let minutes = Math.floor(song.currentTime / 60);
+    let seconds = Math.floor(song.currentTime % 60);
+    
+    if (seconds < 10) {
+        seconds = '0' + seconds;
+    }
+    hover.innerHTML = `${minutes}:${seconds}`;
+});
+</script>
+</body>
+</html>

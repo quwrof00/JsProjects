@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="1first.css">
+</head>
+<body>
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="Enter City Name" spellcheck="false">
+            <button><img src="https://w7.pngwing.com/pngs/737/207/png-transparent-computer-icons-desktop-search-for-desktop-wallpaper-black-and-white-symbol-thumbnail.png" alt=""></button>
+        </div>
+        <div class="weather">
+            <img class="weather-icon" src="https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_17-512.png" alt="">
+            <h1 class="temp">22°c</h1>
+            <h2 class="city">New York</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="https://cdn2.iconfinder.com/data/icons/weather-1070/64/weather_humidity-256.png" alt="">
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="https://cdn0.iconfinder.com/data/icons/speed-related-1/66/41-256.png" alt="">
+                    <div>
+                        <p class="wind">15 km/hr</p>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+    <script>
+        const apiKey = "b6725e5ef878061145c221da810892af";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
+        const searchBox = document.querySelector('.search input');
+        const searchBtn = document.querySelector('.search button');
+        const weatherPic = document.querySelector('.weather-icon');
+        
+
+        async function checkWhether(city) {
+            const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+            let data = await response.json();
+            console.log(data);
+
+            document.querySelector('.city').innerHTML = data.name;
+            document.querySelector('.temp').innerHTML = Math.round(data.main.temp)+`°c`;
+            document.querySelector('.humidity').innerHTML = data.main.humidity + `%`;
+            document.querySelector('.wind').innerHTML = data.wind.speed + ` km/hr`;
+
+            async function changePic(){
+                let i = data.weather[0].main;
+                if(i === 'Clouds'){
+                    weatherPic.src = "https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_38-256.png";
+                }
+                else if (i === 'Clear'){
+                    weatherPic.src = "https://cdn3.iconfinder.com/data/icons/tango-icon-library/48/weather-clear-256.png";
+                }
+                else if (i === 'Rain'){
+                    weatherPic.src = "https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_16-256.png";
+                }
+                else if (i === 'Mist'){
+                    weatherPic.src = "https://cdn4.iconfinder.com/data/icons/the-weather-is-nice-today/64/weather_49-256.png";
+                }
+                else if (i === 'Drizzle'){
+                    weatherPic.src = "https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather05-256.png";
+                }
+            }
+            changePic();
+        }
+        searchBtn.addEventListener('click',function(){
+            checkWhether(searchBox.value);
+        })
+        searchBox.addEventListener('keydown',function(e){
+            if (e.key === 'Enter'){
+                checkWhether(searchBox.value);
+            }
+        })
+        checkWhether('New York');        
+    </script>
+</body>
+</html>

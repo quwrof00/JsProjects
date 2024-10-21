@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="21twentyone.css">
+    <title>Coming Soon Page</title>
+</head>
+<body>
+    <div class="container">
+        <img src="https://w7.pngwing.com/pngs/402/203/png-transparent-picasa-encapsulated-postscript-logo-random-icons-miscellaneous-angle-text.png" alt="" class="logo">
+
+        <div class="content">
+            <p>Website Is Under Maintenance</p>
+            <h1>We're <span>Launching</span> Soon</h1>
+            <div class="time-launcher">
+                <div>
+                    <p id="Days">00</p>
+                    <span>Days</span>
+                </div>
+                <div>
+                    <p id="Hours">00</p>
+                    <span>Hours</span>
+                </div>
+                <div>
+                    <p id="Minutes">00</p>
+                    <span>Minutes</span>
+                </div>
+                <div>
+                    <p id="Seconds">00</p>
+                    <span>Seconds</span>
+                </div>
+            </div>
+            <button type="button">Learn More <img src="https://cdn2.iconfinder.com/data/icons/essential-web-1-1/50/control-play-triangle-launch-start-256.png" alt=""></button>
+        </div>
+        <img src="https://cdn2.iconfinder.com/data/icons/web-development-and-studio/512/30_Rocket_spaceship_startup_launch_Game_space-256.png" class="rocket" alt="">
+    </div>
+<script>
+    var countDownDate = new Date("Oct 26, 2024 00:00:00").getTime();
+    var x = setInterval(function(){
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        var days = Math.floor((distance / (1000*60*60*24)));
+        var hours = Math.floor((distance % (1000*60*60*24) / (1000*60*60) ));
+        var minutes = Math.floor((distance % (1000*60*60) / (1000*60)));
+        var seconds = Math.floor((distance % (1000*60) / 1000));
+
+        if(distance < 0){
+            clearInterval(x);
+            document.querySelector('#Days').innerHTML = '00';
+            document.querySelector('#Hours').innerHTML = '00';
+            document.querySelector('#Minutes').innerHTML = '00';
+            document.querySelector('#Seconds').innerHTML = '00';
+        }else{
+            document.querySelector('#Days').innerHTML = days;
+            document.querySelector('#Hours').innerHTML = hours;
+            document.querySelector('#Minutes').innerHTML = minutes;
+            document.querySelector('#Seconds').innerHTML = seconds;
+
+        }
+    })
+</script> 
+</body>
+</html>

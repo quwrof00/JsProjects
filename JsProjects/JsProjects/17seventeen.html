@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="17seventeen.css">
+    <title>Horizontal scroll image gallery</title>
+</head>
+<body>
+    <div class="gallery-wrap">
+        <img src="https://cdn4.iconfinder.com/data/icons/essential-app-2/16/back-left-arrow-botton-512.png" alt="" id="backBtn">
+        <div class="gallery">
+            <div>
+              <span><img src="https://comicvine.gamespot.com/a/uploads/scale_large/6/67663/7943941-23.jpg" alt=""></span>
+              <span><img src="https://comicvine.gamespot.com/a/uploads/scale_large/6/67663/7368369-20.jpg" alt=""></span>
+              <span><img src="https://comicvine.gamespot.com/a/uploads/scale_large/6/67663/7368367-18.jpg" alt=""></span>
+            </div>
+            <div>
+              <span><img src="https://comicvine.gamespot.com/a/uploads/scale_large/6/67663/5490726-04.jpg" alt=""></span>
+              <span><img src="https://comicvine.gamespot.com/a/uploads/scale_large/1/15776/8737872-aoashi30.jpg" alt=""></span>
+              <span><img src="https://comicvine.gamespot.com/a/uploads/scale_large/11145/111450787/8842276-8432930938-09861.jpg" alt=""></span>
+            </div>
+        </div>
+        <img src="https://cdn4.iconfinder.com/data/icons/essential-app-2/16/next-right-arrow-botton-256.png" alt="" id="nextBtn">
+    </div>
+<script>
+    const next = document.querySelector('#nextBtn');
+    const back = document.querySelector('#backBtn');
+    let scrollContainer = document.querySelector('.gallery');
+    
+    scrollContainer.addEventListener('wheel',function(e){
+        e.preventDefault();
+        scrollContainer.scrollLeft+=e.deltaY;
+        scrollContainer.style.scrollBehavior = 'smooth';
+    })
+    next.addEventListener('click',function(){
+        scrollContainer.scrollLeft+=900;
+        scrollContainer.style.scrollBehavior = 'smooth';
+    })
+    back.addEventListener('click',function(){
+        scrollContainer.scrollLeft-=900;
+        scrollContainer.style.scrollBehavior = 'smooth';
+    })
+</script>
+</body>
+</html>
